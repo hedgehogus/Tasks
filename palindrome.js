@@ -1,14 +1,11 @@
 function start(){
-    //let primes = findPrimeNumbers();    
-    //console.log(primes);
-
-    console.log(isPalindrome(1234761234));
-    console.log(isPalindrome(123321));
-    console.log(isPalindrome(12321));
-    console.log(isPalindrome(123421));
-    console.log(isPalindrome(124321));
+    let primes = findPrimeNumbers();   
+    let result = findMaxPal(primes); 
+    console.log(result.palindrome);
+    console.log(result.first);
+    console.log(result.second);
+    
 }
-
 
 function findPrimeNumbers(){
     // all 5-digit numbers lie in this area
@@ -60,9 +57,46 @@ function findPrimeNumbers(){
     return fiveDigits;
 }
 
+// finding maximum palindrome number after multiplication
+function findMaxPal(arr){
+    let length = arr.length;
+    let maxPal = 0;       
+    let result;
 
-function isPalindrome(number){
-    console.log(number);
+    for (let i = length-1; i > 0; i--){
+        
+        for(let j = length-1; j >= i; j--){
+            let prod = arr[i]*arr[j];
+            
+            //if product of two numbers is less then max palindrome - we do not need other computatinons for this first number;
+            if(prod < maxPal){                
+                break;
+            }
+
+            // if we found palindrome for bigger numbers, we do not need to find for less numbers
+            if (isPalindrome(prod)){                
+                if(prod>maxPal){ //checking if this result is maximum
+                    maxPal=prod;
+                    result={palindrome: prod, first:arr[i], second:arr[j]}                    
+                }
+                break;
+            }
+            
+        }
+    } 
+    
+    if (typeof result === "undefined"){
+        result={palindrome: "did not find", first:undefined, second:undefined}  
+    }
+    
+    return result;
+
+}
+
+
+
+//checking if the number is palindrome
+function isPalindrome(number){    
     let str = number.toString();
     let isPalindr = true;
     let length = str.length;
