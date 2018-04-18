@@ -1,0 +1,2 @@
+1) landscape css adaptation
+   @media screen and (max-width: 732px) and (orientation: landscape) 
