@@ -1,2 +1,25 @@
 1) landscape css adaptation
    @media screen and (max-width: 732px) and (orientation: landscape) 
+   
+   
+2) loading files
+      //controller
+public getStatement() {
+        this._senderService.getStatement()
+            .subscribe(res => {
+                const blob = new Blob([res.blob()], { type: 'ascsds/xls' });
+                FileSaver.saveAs(blob, 'excel.xls');
+            });
+    }
+    
+    //service
+     public getStatement(): Observable<any> {
+        const url = `${API_URL}/asd/asd/asdassdt`;
+        const options = new RequestOptions({
+            method: RequestMethod.Get,
+            responseType: ResponseContentType.Blob,
+            headers: new Headers({ 'Content-Type': 'application/xls' })
+        });
+        return this._http.get(url, options).map(response => response);
+    }
+
