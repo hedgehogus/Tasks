@@ -23,3 +23,5 @@ public getStatement() {
         return this._http.get(url, options).map(response => response);
     }
 
+3) save files
+ http://danml.com/download.html
