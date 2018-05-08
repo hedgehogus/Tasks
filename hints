@@ -33,3 +33,9 @@ public getStatement() {
       {
         alert("Please dont use IE.");
       }
+      
+5)tracing redirect
+
+function controller ($location){
+ const params = $location.search();
+}
