@@ -39,3 +39,37 @@ public getStatement() {
 function controller ($location){
  const params = $location.search();
 }
+
+6) angular-ui-router
+      $state.go('form1', {param1:10, param2:20});      
+     ---
+     /*app.config.start-process.js*/
+     
+     app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
+      function ($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise("/");        
+        $stateProvider            
+            .state('start.form1', {
+                url: 'form1?param1&param2',
+                templateUrl: "../views/forms/form1.html?v="+ v,
+                controller: "FormCtrl",
+                params: {
+                    param1: null,
+                    param2: null
+                }
+            })
+            
+        }])
+    .run(['$rootScope', '$location', '$window',
+        function ($rootScope, $location, $window) {
+            var path = $location.absUrl();
+            $rootScope.$on('$stateChangeSuccess', function(event, next, current) {
+                $window.ga('send', 'pageview', { page: $location.absUrl() });
+                if (!current || !next || !current.$$route || !next.$$route) return;
+                var newPath = $location.path();
+                $metrika.hit(newPath, {
+                    referer: path
+                });
+                path = newPath;
+            });
+        }]);
