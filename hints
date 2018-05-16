@@ -73,3 +73,8 @@ function controller ($location){
                 path = newPath;
             });
         }]);
+        
+
+7) animation blur fix
+
+-webkit-font-smoothing: subpixel-antialiased;
