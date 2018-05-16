@@ -78,3 +78,9 @@ function controller ($location){
 7) animation blur fix
 
 -webkit-font-smoothing: subpixel-antialiased;
+
+8) animation firefox fix
+
+backface-visibility: hidden;
+or
+transform3d(0,0,0);
