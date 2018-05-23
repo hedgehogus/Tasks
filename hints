@@ -84,3 +84,14 @@ function controller ($location){
 backface-visibility: hidden;
 or
 transform3d(0,0,0);
+
+9) dialog 
+ $scope.confirm = function (ev) {
+    $mdDialog.show({
+               controller: Controller,
+               parent: angular.element(document.body),
+               targetEvent: ev,
+               clickOutsideToClose: true,
+               contentElement: '#id',//id in html 
+           });
+   }
