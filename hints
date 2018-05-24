@@ -95,3 +95,11 @@ transform3d(0,0,0);
                contentElement: '#id',//id in html 
            });
    }
+   
+ 10) git names 
+      
+      git config --unset-all --global user.name
+      git config --unset-all --global user.email
+      
+      git config --global user.name "John Doe"
+      git config --global user.email johndoe@example.com
