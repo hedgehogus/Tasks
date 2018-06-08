@@ -43,4 +43,6 @@
       vm.scrollTo = function (selector) {
             smoothScroll(document.querySelector(selector));
         }
+        
+       // 'bower_components/ngSmoothScroll/lib/angular-smooth-scroll.js',
 
