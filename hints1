@@ -37,3 +37,10 @@
             return false;
           }
      }
+     
+ 3)scroll
+ 
+      vm.scrollTo = function (selector) {
+            smoothScroll(document.querySelector(selector));
+        }
+
