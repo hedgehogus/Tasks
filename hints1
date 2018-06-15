@@ -45,4 +45,8 @@
         }
         
        // 'bower_components/ngSmoothScroll/lib/angular-smooth-scroll.js',
+       
+  4) CALL function from farent component
+  
+  @ViewChild('component_id') nameofvaribale;
 
