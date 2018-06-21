@@ -50,3 +50,23 @@
   
   @ViewChild('component_id') nameofvaribale;
 
+5) email sytmbols
+
+app.directive('emailInput', function() {
+
+    return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: function($scope, $element) {
+            $element.bind('keydown', function(e) {
+                let char = e.key.charCodeAt(0);
+                console.log(e.key);
+                if (!(0x0040 <= char  && char  <= 0x007E) &&
+                    !(0x0030 <= char  && char  <= 0x0039)&&
+                    !(char == 0x002e)) {
+                    e.preventDefault();
+                }
+            });
+        }
+    }
+});
