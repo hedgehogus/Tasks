@@ -70,3 +70,8 @@ app.directive('emailInput', function() {
         }
     }
 });
+
+6)changing mat-input active placeholder
+
+.mat-focused .mat-input-placeholder
+  color: #539683 !important
