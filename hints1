@@ -75,3 +75,6 @@ app.directive('emailInput', function() {
 
 .mat-focused .mat-input-placeholder
   color: #539683 !important
+  
+7) paralax js
+(background scroll)
