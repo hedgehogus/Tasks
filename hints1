@@ -78,3 +78,9 @@ app.directive('emailInput', function() {
   
 7) paralax js
 (background scroll)
+
+8) ng-deep in component
+
+:host /deep/ h3 {
+  font-style: italic;
+}
