@@ -84,3 +84,35 @@ app.directive('emailInput', function() {
 :host /deep/ h3 {
   font-style: italic;
 }
+
+10) custom directive for input cursor
+
+        import {Directive, ElementRef, HostListener, Input} from '@angular/core';
+        import {NgControl} from '@angular/forms';
+
+        @Directive({
+          selector: '[appPhoneInputFocus]'
+        })
+        export class PhoneInputFocusDirective {
+          private input: any;
+
+          constructor(private el:  ElementRef) {
+            this.input = this.el.nativeElement;
+          }
+
+          @HostListener('click') onClick() {
+            this.moveCaret();
+          }
+
+          @HostListener('keyup') onKeyPress() {
+            this.moveCaret();
+          }
+
+          private moveCaret() {
+            const start = this.input.value.indexOf('_');
+            if ((this.input.selectionStart > start) && start !== -1) {
+              this.input.setSelectionRange(start, start);
+            }
+          }
+        }
+
