@@ -119,3 +119,6 @@ app.directive('emailInput', function() {
 11) firefox only styles
 
         @-moz-document url-prefix() {}
+        
+12) ie only styles 
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {}
