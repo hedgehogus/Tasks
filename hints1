@@ -46,11 +46,11 @@
         
        // 'bower_components/ngSmoothScroll/lib/angular-smooth-scroll.js',
        
-  4) CALL function from farent component
+  4) CALL function from parent component
   
   @ViewChild('component_id') nameofvaribale;
 
-5) email sytmbols
+5) email symbols
 
 app.directive('emailInput', function() {
 
