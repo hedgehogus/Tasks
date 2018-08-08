@@ -116,3 +116,6 @@ app.directive('emailInput', function() {
           }
         }
 
+11) firefox only styles
+
+        @-moz-document url-prefix() {}
