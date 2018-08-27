@@ -1,1 +1,16 @@
-1)
+1) http://css-live.ru/articles/resheno-s-pomoshhyu-css-logicheskaya-stilizaciya-na-osnove-chisla-elementov.html
+
+pseudo - selectors
+    :empty
+    
+    div:empty:after {
+      content: 'Ой, ничего';
+    }
+    
+    :not(:empty)
+    :nth-child (https://css-tricks.com/useful-nth-child-recipies/)
+    
+    
+ 2)https://css-tricks.com/solved-with-css-dropdown-menus/
+ 3)https://css-tricks.com/solved-with-css-colorizing-svg-backgrounds/
+
