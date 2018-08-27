@@ -9,6 +9,9 @@ pseudo - selectors
     
     :not(:empty)
     :nth-child (https://css-tricks.com/useful-nth-child-recipies/)
+    :nth-last-child(3) (third from the last element)
+    :nth-last-child(n + 3) (third and more from the last element)
+    :first-child:last-child(n + 3) ~ *   он выберет все элементы, кроме первого
     
     
  2)https://css-tricks.com/solved-with-css-dropdown-menus/
