@@ -13,6 +13,17 @@ pseudo - selectors
     :nth-last-child(n + 3) (third and more from the last element)
     :first-child:last-child(n + 3) ~ *   он выберет все элементы, кроме первого
     
+    /* 5 или более элементов отображаются друг за другом */
+        li:first-child:nth-last-child(n + 5),
+        li:first-child:nth-last-child(n + 5) ~ li {
+          display: inline;
+        }
+    /* Добавляем точку с запятой после каждого элемента кроме последнего */
+        li:first-child:nth-last-child(n + 5) ~ li::before {
+          content: ';';
+          margin: 0 0.5em 0 -0.75em;
+        }
+    
     
  2)https://css-tricks.com/solved-with-css-dropdown-menus/
  3)https://css-tricks.com/solved-with-css-colorizing-svg-backgrounds/
