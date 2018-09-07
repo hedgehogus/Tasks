@@ -1,2 +1,5 @@
 1) standalone input
 [ngModelOptions]="{standalone: true}"
+
+2) generate component without unit tests
+    ng g c component-name --spec false
