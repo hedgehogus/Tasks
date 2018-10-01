@@ -1,1 +1,11 @@
 
+1) Styles of ng-modal
+
+let $dialog = angular.element(document.querySelector('md-dialog'));
+                let $actionsSection = $dialog.find('md-dialog-actions');
+                let $cancelButton = $actionsSection.children()[0];
+                let $confirmButton = $actionsSection.children()[1];
+                angular.element($confirmButton).removeClass('md-primary');
+                angular.element($cancelButton).removeClass('md-primary');
+                angular.element($confirmButton).addClass('alert_dialog_text');
+                angular.element($cancelButton).addClass('alert_dialog_text');
