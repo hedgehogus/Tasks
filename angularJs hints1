@@ -1,5 +1,5 @@
 
-1) Styles of ng-modal
+1) Styles of md-modal
 
 let $dialog = angular.element(document.querySelector('md-dialog'));
                 let $actionsSection = $dialog.find('md-dialog-actions');
