@@ -4,7 +4,10 @@
 2) generate component without unit tests
     ng g c component-name --spec false
     
-3) form groups
+3) IE 
+    https://blog.angularindepth.com/angular-and-internet-explorer-5e59bb6fb4e9
+    
+4) form groups
     1. 
     export class Component implements OnInit{
         public form: FormGroup;
