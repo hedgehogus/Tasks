@@ -3,3 +3,31 @@
 
 2) generate component without unit tests
     ng g c component-name --spec false
+    
+3) form groups
+    1. 
+    export class Component implements OnInit{
+        public form: FormGroup;
+        
+        constructor(
+            private _fb: FormBuilder);
+            
+        public async ngOnInit() {
+            this.form = this._fb.group({
+                name: '',
+                code: '',
+                prop: ''
+            });
+         }
+    }
+    
+    <form [formGroup]="productType">
+        <div fxLayout="row" fxLayoutAlign="space-between" flex100>
+             <mat-input-container flex35>
+                   <input matInput placeholder="Name" formControlName="productName">
+                        <mat-hint align="end">
+                            {{form.value.name?.length}} / 30
+                        </mat-hint>
+              </mat-input-container>
+         </div>
+     </form>
