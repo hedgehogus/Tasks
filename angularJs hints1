@@ -9,3 +9,6 @@ let $dialog = angular.element(document.querySelector('md-dialog'));
                 angular.element($cancelButton).removeClass('md-primary');
                 angular.element($confirmButton).addClass('alert_dialog_text');
                 angular.element($cancelButton).addClass('alert_dialog_text');
+                
+ 2) refresh dom
+  $scope.$apply();
