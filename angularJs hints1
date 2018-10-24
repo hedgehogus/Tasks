@@ -11,4 +11,5 @@ let $dialog = angular.element(document.querySelector('md-dialog'));
                 angular.element($cancelButton).addClass('alert_dialog_text');
                 
  2) refresh dom
+ 
   $scope.$apply();
