@@ -10,6 +10,13 @@ let $dialog = angular.element(document.querySelector('md-dialog'));
                 angular.element($confirmButton).addClass('alert_dialog_text');
                 angular.element($cancelButton).addClass('alert_dialog_text');
                 
- 2) refresh dom
+2) refresh dom
  
   $scope.$apply();
+  
+3) detecting changes
+
+ vm.$doCheck = function () {
+        if (!angular.equals(var1, var2)) {
+            ...
+        }
