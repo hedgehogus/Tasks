@@ -27,4 +27,13 @@ pseudo - selectors
     
  2)https://css-tricks.com/solved-with-css-dropdown-menus/
  3)https://css-tricks.com/solved-with-css-colorizing-svg-backgrounds/
+ 
+4)fonts formats
+    @font-face
+        font-family: 'Lato Heavy'
+        src: url('lato/fonts/Lato-Heavy.eot')
+        src: url('lato/fonts/Lato-Heavy.eot?#iefix') format('embedded-opentype'),
+        url('lato/fonts/Lato-Heavy.woff2') format('woff2'),
+        url('lato/fonts/Lato-Heavy.woff') format('woff'),
+        url('lato/fonts/Lato-Heavy.ttf')  format('truetype')
 
