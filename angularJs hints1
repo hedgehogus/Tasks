@@ -24,3 +24,5 @@ let $dialog = angular.element(document.querySelector('md-dialog'));
 
    localStorage.setItem('pack', JSON.stringify(pack));
    let pack = JSON.parse(localStorage.getItem('pack')); // important with JSON.parse, boolean saves as string
+   
+   localStorage.removeItem('pack'); // clear
