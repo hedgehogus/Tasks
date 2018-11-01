@@ -1,3 +1,7 @@
 1) disable autocomplete
 
     <input autocomplete="off">
+    
+2) regex for correct money input
+
+    ^([\d]{1,5})(.[\d]{1,2})?$
