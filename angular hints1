@@ -43,29 +43,53 @@
 export class OnlyOneDotNumberDirective {
   private el: HTMLInputElement;
   private regEx =  /^(([\d]{1,5})(\.[\d]{0,2})?)?$/;
+  private lastInput: any;
 
   constructor(private element: ElementRef) {
     this.el = this.element.nativeElement;
   }
 
-  @HostListener('keydown', ['$event']) onKeyDown(e){
-    if ([46, 8, 9, 27, 13, 110].indexOf(e.keyCode) !== -1 ||
-      // Allow: Ctrl+A
-      (e.keyCode === 65 && e.ctrlKey === true) ||
-      // Allow: Ctrl+C
-      (e.keyCode === 67 && e.ctrlKey === true) ||
-      // Allow: Ctrl+V
-      (e.keyCode === 86 && e.ctrlKey === true) ||
-      // Allow: Ctrl+X
-      (e.keyCode === 88 && e.ctrlKey === true) ||
-      // Allow: home, end, left, right
-      (e.keyCode >= 35 && e.keyCode <= 39)) {
-      // let it happen, don't do anything
-      return;
-    }
-    if (!this.regEx.test(this.el.value + e.key)) {
+  @HostListener('paste', ['$event']) blockPaste(e: KeyboardEvent) {
+    e.preventDefault();
+  }
+
+  @HostListener('cut', ['$event']) blockCut(e: KeyboardEvent) {
+    e.preventDefault();
+  }
+
+  @HostListener('keydown', ['$event']) onKeyDown(e) {
+    if(e.keyCode === 8 || e.keyCode === 46){
+      let caretPosition = this.el.selectionStart;
+      let str = '';
+      if(e.keyCode === 8 ){
+        str = this.el.value.slice(0, caretPosition - 1) + this.el.value.slice(caretPosition, this.el.value.length + 1);
+      }
+      if(e.keyCode === 46){
+        str = this.el.value.slice(0, caretPosition) + this.el.value.slice(caretPosition + 1, this.el.value.length + 1);
+      }
+      if (!this.regEx.test(str)) {
+        e.preventDefault();
+        this.el.value = this.lastInput;
+      } else {
+        this.lastInput = str;
+      }
+    };
+  }
+
+  @HostListener('keypress', ['$event']) onKeyPress(e){
+    let caretPosition = this.el.selectionStart;
+    let str = this.el.value.slice(0,caretPosition) + e.key + this.el.value.slice(caretPosition, this.el.value.length + 1);
+
+    if (!this.regEx.test(str)) {
+      this.el.value = this.lastInput;
       e.preventDefault();
+    } else {
+      this.lastInput = str;
     }
+  }
+
+  @HostListener('focus', ['$event']) onFocus() {
+    this.lastInput = this.el.value;
   }
 
   @HostListener('blur', ['$event']) onBlur() {
