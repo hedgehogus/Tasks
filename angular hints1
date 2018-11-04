@@ -98,3 +98,5 @@ export class OnlyOneDotNumberDirective {
     }
   }
 }
+
+6) ng g c componentname --spec false (without tests)
