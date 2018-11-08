@@ -100,3 +100,6 @@ export class OnlyOneDotNumberDirective {
 }
 
 6) ng g c componentname --spec false (without tests)
+
+7) detecting background loaded
+        https://medium.com/@kittycatbytes/check-background-image-load-event-in-angular-7be87b308fad
