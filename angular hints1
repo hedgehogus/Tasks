@@ -103,3 +103,6 @@ export class OnlyOneDotNumberDirective {
 
 7) detecting background loaded
         https://medium.com/@kittycatbytes/check-background-image-load-event-in-angular-7be87b308fad
+        
+8) text mask
+        https://www.npmjs.com/package/angular2-text-mask
