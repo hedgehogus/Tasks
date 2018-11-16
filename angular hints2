@@ -10,3 +10,10 @@
           }
         });
       }
+      
+2) http with params
+
+    this._http.get(url, {params: {'email': 'research@gmail.com'}}).pipe(map((res: Response) => {
+      console.log(Response);
+      this.user.next([res.json()]);
+    })).subscribe();
