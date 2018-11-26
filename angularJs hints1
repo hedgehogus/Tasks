@@ -26,3 +26,10 @@ let $dialog = angular.element(document.querySelector('md-dialog'));
    let pack = JSON.parse(localStorage.getItem('pack')); // important with JSON.parse, boolean saves as string
    
    localStorage.removeItem('pack'); // clear
+   
+5) html binding
+
+    <ANY
+      ng-bind-html="expression">
+    ...
+    </ANY>
