@@ -17,3 +17,22 @@
       console.log(Response);
       this.user.next([res.json()]);
     })).subscribe();
+    
+3) unsubscribe 
+
+     private unsubscribe$ = new Subject<void>();
+
+      todos: Todo[];
+      constructor(private store: Store<State>) {}
+
+      ngOnInit() {
+        this.store
+          .pipe(select(selectTodos), takeUntil(this.unsubscribe$)) // unsubscribe to prevent memory leak
+          .subscribe(todos => this.todos = todos);            // unwrap observable
+      }
+
+      ngOnDestroy(): void {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
+      }
+    }
