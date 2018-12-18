@@ -5,3 +5,12 @@
 2) regex for correct money input
 
     ^([\d]{1,5})(.[\d]{1,2})?$
+
+3) detect screen rotattion 
+
+    var supportsOrientationChange = "onorientationchange" in window,
+      orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
+
+    window.addEventListener(orientationEvent, () =>{
+       
+      }, false);
