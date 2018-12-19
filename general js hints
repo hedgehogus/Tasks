@@ -6,11 +6,15 @@
 
     ^([\d]{1,5})(.[\d]{1,2})?$
 
-3) detect screen rotattion 
+3) detect screen rotattion and reload 
+
+    this.orientation = window.innerWidth < window.innerHeight;
 
     var supportsOrientationChange = "onorientationchange" in window,
       orientationEvent = supportsOrientationChange ? "orientationchange" : "resize";
 
     window.addEventListener(orientationEvent, () =>{
-       
-      }, false);
+      if (window.innerWidth < window.innerHeight !== this.orientation) {
+        window.location.reload();
+      }
+    }, false);
