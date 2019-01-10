@@ -36,3 +36,11 @@
         this.unsubscribe$.complete();
       }
     }
+    
+    
+ 4) MatDialog
+  const dialogRef = this.dialog.open(LeaveFeedbackComponent, {width: '80%', height: '95%'});
+  
+  app.module ->>   
+    entryComponents: [
+        LeaveFeedbackComponent],
