@@ -35,8 +35,7 @@
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
       }
-    }
-    
+    }  
     
  4) MatDialog
   const dialogRef = this.dialog.open(LeaveFeedbackComponent, {width: '80%', height: '95%'});
@@ -44,3 +43,15 @@
   app.module ->>   
     entryComponents: [
         LeaveFeedbackComponent],
+        
+ 5) add script dinamically
+  
+   constructor( @Inject(DOCUMENT) private doc: any){  }
+   
+   ngOnInit(){
+       const s = this.doc.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.innerHTML = 'script';
+        const head = this.doc.getElementsByTagName('head')[0];
+    head.appendChild(s);
