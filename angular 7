@@ -1,0 +1,31 @@
+1) change detection strategy https://habr.com/ru/company/infopulse/blog/358860/
+
+   get runChangeDetection() {
+    console.log('Checking the view');
+    return true;
+  }
+  -----  
+  @Component({
+  template: `
+    <button (click)="add()">Add</button>
+    {{count}}
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush
+  -------
+  Ручной запуск обнаружения изменений:
+  
+    constructor(private cdr: ChangeDetectorRef) {
+      setTimeout(() => {
+        this.count = 5;
+        this.cdr.detectChanges();
+      }, 1000);
+    }
+    
+    ApplicationRef.tick()
+    
+    markForCheck(): void { 
+      markParentViewsForCheck(this._view); 
+    }
+  -------------
+  
+  <div *ngFor="let item of items | async">{{item.title}}</div>
