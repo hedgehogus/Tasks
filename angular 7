@@ -29,3 +29,5 @@
   -------------
   
   <div *ngFor="let item of items | async">{{item.title}}</div>
+
+2) zone.js https://blog.angularindepth.com/a-gentle-introduction-into-change-detection-in-angular-33f9ffff6f10
