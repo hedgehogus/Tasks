@@ -1,0 +1,40 @@
+1) project setup
+    npm install -g @angular/cli
+    ng new my-app
+    cd my-app
+    ng serve
+    
+    npm - node package manager
+    
+2) decorators: 
+    @Component
+    @NgModule
+    @Directive
+    
+3) attribute selectors 
+    <div app-servers> </div>
+    @Component({
+      selector: '[app-servers]',...
+    })
+    
+   class selectors:
+   <div class='app-servers'> </div>
+    @Component({
+      selector: '.app-servers',...
+    })
+    
+4) directives:
+    * - structural directive - changes structure of dom
+          *ngIf
+          *ngFor
+     - attribute directives
+          [ngStyle]='{color: green}'
+          [ngClass]='{online: true}'
+    ----
+    <p> *ngIf="serverCreated; else noServer">erewr</p>
+    <ng-template #noServer>
+      <p>text</p>
+    </ng-template>
+    ----
+    <p> *ngFor="let logItem of log; let i = index">erewr</p>
+    
