@@ -42,3 +42,6 @@
     export class Ingredint {
         constructor(public name: string, public amount: number) {}
      }
+     
+6) augury
+    https://chrome.google.com/webstore/detail/augury/elgalmkoelokbchhkhacckoklkejnhcd
