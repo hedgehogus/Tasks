@@ -7,9 +7,13 @@
     npm - node package manager
     
 2) decorators: 
-    @Component
-    @NgModule
-    @Directive
+    @Component()
+    @NgModule()
+    @Directive()
+    
+    @Input()
+    @Output()
+    @ViewChild()
     
 3) attribute selectors 
     <div app-servers> </div>
@@ -45,3 +49,20 @@
      
 6) augury
     https://chrome.google.com/webstore/detail/augury/elgalmkoelokbchhkhacckoklkejnhcd
+    
+7) input alias
+       @Input('nameOfProperty') element: {type:string, name: string};
+       @Input('nameOfEvent') event = new EventEmitter<{type:string, name: string}>();
+       
+8) css encapsulation 
+    @Component({
+        encapsulation: ViewEncapsulation.None - for all files
+        encapsulation: ViewEncapsulation.Native - for some browsers
+        encapsulation: ViewEncapsulation.Emulated - encapsulated (default)
+    })
+    
+9) local reference 
+    <input #serverNameInput> - can use this variable in template (type : HTMLInputElement)
+    @ViewChild('serverNameInput') serverNameInputVariable: ElementRef - #serverNameInput - in html
+     @ViewChild(ChildComponent) serverNameInputVariable: ElementRef - find first occurence
+    
