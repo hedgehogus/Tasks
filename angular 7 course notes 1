@@ -38,3 +38,7 @@
     ----
     <p> *ngFor="let logItem of log; let i = index">erewr</p>
     
+5) models
+    export class Ingredint {
+        constructor(public name: string, public amount: number) {}
+     }
