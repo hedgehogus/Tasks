@@ -14,6 +14,7 @@
     @Input()
     @Output()
     @ViewChild()
+    @ContentChild()
     
 3) attribute selectors 
     <div app-servers> </div>
@@ -62,7 +63,25 @@
     })
     
 9) local reference 
-    <input #serverNameInput> - can use this variable in template (type : HTMLInputElement)
-    @ViewChild('serverNameInput') serverNameInputVariable: ElementRef - #serverNameInput - in html
+     <input #serverNameInput> - can use this variable in template (type : HTMLInputElement)
+     @ViewChild('serverNameInput') serverNameInputVariable: ElementRef - #serverNameInput - in html
      @ViewChild(ChildComponent) serverNameInputVariable: ElementRef - find first occurence
+     @ContentChild('childRef') contentChild: ElementRef;
     
+    
+10) ng-content
+        <ng-content></ng-content> - displays what we put in component tag
+        
+11) lifecycle hooks
+        -- ngOnChanges - called after a bound input property changes
+        -- ngOnInit - Called once the component is initialized - runs after the constructor
+        -- ngDoCheck - Called during every change detection run
+        -- ngAfterContentInit - called after content (ng-content) has been projected into view
+        -- ngAfterContentChecked - Called every time the projected content has been checked
+        -- ngAfterViewInit - called after the components view (and child views) has been initialized !! can reach @ViewChild variables
+        -- ngAfterViewChecked - called every time the view (and child views) have been checked
+        -- ngOnDestroy - called once the component is about to be destroyed
+        
+        ngOnChanges(changes: SimpleChanges){}
+        
+
