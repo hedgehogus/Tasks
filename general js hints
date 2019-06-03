@@ -23,3 +23,7 @@
         ^(\d{9}|\d{14})$ 
 
 5) let a = (str) => [...str].reverse().join('');
+
+6) creating a copy of array
+        let a = [1,2,3];
+        let b = a.slice();
