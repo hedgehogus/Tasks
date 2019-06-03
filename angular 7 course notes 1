@@ -7,14 +7,20 @@
     npm - node package manager
     
 2) decorators: 
+        class:
     @Component()
     @NgModule()
     @Directive()
-    
+    @Injectable
+        variables:
     @Input()
     @Output()
     @ViewChild()
     @ContentChild()
+    @HostBinding() - directives
+        method:
+    @HostListener() - directives
+    @Input set method(){} - execute method when this input property changes(directive)
     
 3) attribute selectors 
     <div app-servers> </div>
@@ -32,9 +38,10 @@
     * - structural directive - changes structure of dom
           *ngIf
           *ngFor
-     - attribute directives
+     - attribute directives - change properties of elements
           [ngStyle]='{color: green}'
           [ngClass]='{online: true}'
+          [ngSwitch]="value"  --- child *ngSwitchCase='2' *ngSwitchDefault
     ----
     <p> *ngIf="serverCreated; else noServer">erewr</p>
     <ng-template #noServer>
@@ -42,6 +49,49 @@
     </ng-template>
     ----
     <p> *ngFor="let logItem of log; let i = index">erewr</p>
+    ----
+    @Directive({
+        selector:'[appBasicHightlight]' - attribute directive
+    })
+    export class BasicDirective implements OnInit{
+        @Input() defaultColor: string = 'transparent';
+        @Input() highlightColor: string = 'blue';
+        @HostBinding('style.backgroundColor') backgroundColor: string ;
+        constructor(
+            private elementRef: ElementRef,
+            private renderer: Renderer2){
+        }
+        ngOnInit() {
+            //this.elementRef.nativeElement.style.backgroundColor = 'green'
+           // this.renderer.setStyle(this.elRef.nativeElement, 'background-color','blue') 
+           this.backgroundColor= this.defaultColor;
+        }
+        @HostListener('mouseenter') mouseover(eventData: Event){
+           // this.renderer.setStyle(this.elRef.nativeElement, 'background-color','red') 
+           this.backgroundColor = this.highlightColor;
+        }
+        @HostListener('mouseleave') mouseleave(eventData: Event){
+           // this.renderer.setStyle(this.elRef.nativeElement, 'background-color','transparent') 
+           this.backgroundColor = this.defaultColor;
+        }
+    }
+    ----
+    @Directive({
+        selector:'[appUnless]' 
+    })
+    export class StructuralDirective implements OnInit{
+        @Input() set appUnless(condition:boolean){ - must be the same as selector
+            if(!condition){
+                this.vcRef.createEmbeddedView(this.templateRef);
+            } else {
+                this.vcRef.clear();
+            }
+        }
+        
+        constructor(private templateRef: TemplateRef<any>,
+                    private vcRef: ViewContainerRef){  }
+        
+    }
     
 5) models
     export class Ingredint {
