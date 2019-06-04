@@ -30,3 +30,7 @@
         
 7) adding array to array 
         this.ingredients.push(...ingredients);
+        
+8) convert to number
+    let stringV = '9';
+    let numberV = +stringV ;
