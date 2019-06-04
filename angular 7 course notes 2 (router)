@@ -75,7 +75,134 @@
      }
      
      onLoadServer(id:number) {
-        this.router.navigate(['/servers', id, 'edit], {queryParams: {allowEdit: '1'}, fragment: 'loading');
-     }
+        //this.router.navigate(['/servers', id, 'edit], {queryParams: {allowEdit: '1'}, fragment: 'loading');
+        this.router.navigate(['edit'], {relativeTo: this.route, queryParamsHandling: 'preserve'}) -- or queryParamsHandling: 'merge'
+     }     
      
+4) children routes
+
+    const appRoutes: Routes = [
+      {path: '', component: HomeComponent},
+      {path: 'users', component: UsersComponent},   
+      {path: 'servers', component: ServersComponent, children: [
+         {path: ':id', component: ServerComponent},
+         {path: ':id/edit', component: EditServerComponent},
+      ]}
+    ]
+    
+ 5) not found
+ 
+   const appRoutes: Routes = [
+      {path: '', component: HomeComponent},
+      {path: 'users', component: UsersComponent},        
+      { path: 'not-found', component: PageNotFoundComponent },
+      { path: '**', redirectTo: '/not-found'} -- wildcard route - must be the last in routes array
+    ]
      
+ 6) guards
+    
+    @Injectable()
+    export class AuthGuard implements CanActivate, CanActivateChild {
+        constructor(private authService: AuthService, private router: Router) {}
+        
+        canActivate(route ActivatedRouteSnapshot,
+                    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+           this.authService.isAuthenticated().then(
+                (authenticated: boolean) => {
+                    if (authenticated) {
+                        return true;
+                    } else {
+                        this.router.navigate(['/']);
+                    }
+                }
+           );
+        }
+        
+        canActivateChild(route ActivatedRouteSnapshot,
+                    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean{
+           this.authService.isAuthenticated().then(
+                (authenticated: boolean) => {
+                    if (authenticated) {
+                        return true;
+                    } else {
+                        this.router.navigate(['/servers']);
+                    }
+                }
+           );
+        }
+    }
+    
+    const appRoutes: Routes = [
+      {path: '', component: HomeComponent},     
+      {path: 'servers', canActivate[AuthGuard], canActivateChild[AuthGuard] component: ServersComponent, children: [
+         {path: ':id', component: ServerComponent},
+         {path: ':id/edit', component: EditServerComponent},
+      ]}
+    ]
+  
+7) can deactivate - when we leaving the route
+  
+    export interface CanComponentDeactivate {               --- implement this interface in the component
+        canDeactivate: () => Observable<boolean> | Promise<boolean> | boolean;
+    }
+    
+    export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate>{
+        canDeactivate(component: CanComponentDeactivate,
+                      currentRoute: ActivatedRouteSnapshot,
+                      currentState: RouterStateSnapshot,
+                      nextState?: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+             return component.canDeactivate();
+        }
+    }
+    
+    const appRoutes: Routes = [
+      {path: '', component: HomeComponent},     
+      {path: 'servers', canActivate[AuthGuard], canActivateChild[AuthGuard] component: ServersComponent, children: [
+         {path: ':id', component: ServerComponent},
+         {path: ':id/edit', component: EditServerComponent, canDeactivate [CanDeactivateGuard]},
+      ]}
+    ]
+    
+    // in component
+       canDeactivate(): Observable<boolean> | Promise<boolean> | boolean{
+        if(!this.allowEdit){
+            return true;        
+        }
+        if ((this.serverName !== this.server.name)) && this.changesSaved){
+            return confirm('Do you want to discard the cnanges?');
+        } else {
+            return true;
+        }
+       } 
+
+  8) passing data to the route
+  
+     const appRoutes: Routes = [
+      {path: '', component: HomeComponent},       
+      { path: 'not-found', component: ErrorPageComponent, data: {message: 'Page not found'} }, - to get subscribe >> this.route.data (ActivatedRoute)
+      { path: '**', redirectTo: '/not-found'} 
+    ]
+    
+ 9) resolver - before render the component 
+    Server - custom interface 
+    
+    @Injectable()
+    export class ServerResolver implements Resolve<Server>{
+        constructor(private serversService: ServersService){}
+    
+        resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):  Observable<Server> | Promise<Server> | Server {
+            return this.serversService.getServer(+route.params['id']);
+        }
+    }
+    
+    const appRoutes: Routes = [
+      {path: '', component: HomeComponent},       
+      { {path: 'servers', component: ServersComponent, children: [
+         {path: ':id', component: ServerComponent, resolve: {server: ServerResolver},
+         {path: ':id/edit', component: EditServerComponent},
+      ]}
+    ]
+    
+    ---
+    component on init ->> this.route.data.subscribe();
+ 
