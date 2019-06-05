@@ -1,0 +1,41 @@
+1) nmp install --save rxjs -compat
+  for old import syntax
+  
+  success, fail, complete
+  
+2) creating Observable
+
+  import 'rxjs/Rx';
+  
+  const myNumbers = Observable.interval(1000);
+  myNumbers.subscribe(
+    (number: number) => {
+      console.log(number);
+    }
+  )
+  
+  ----
+  const myObservable = Observable.create((observer: Observer<string>) =>{
+      setTimeout(() => {
+        observer.next('first package');
+      }, 2000);
+      setTimeout(() => {
+        observer.next('second package');
+      }, 4000);
+      setTimeout(() => {
+        observer.error('this does not work');
+        //observer.complete();
+      }, 5000);
+  
+  });
+  myObservable.subscribe(
+    (data: string) => {console.log(data)},
+    (error: string) => {console.log(error)},
+    () => {console.log('completed')},
+  );
+  
+3) Subject - observable and observer at the same time
+  
+  userActivated = new Subject();
+    
+  this.userActivated.next(this.id);
