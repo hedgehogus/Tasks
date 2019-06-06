@@ -1,11 +1,20 @@
 1) nmp install --save rxjs -compat
   for old import syntax
+      import { Observable } from 'rxjs/Observable';
+      import 'rxjs/Rx'   -- unlock operators;
   
+  import without rxjs -compat      
+      import { Observable, interval } from 'rxjs';
+      import { map } from 'rxjs/operators';
+      
+      interval(1000).pipe(
+        map(data: number) => {return data*2;}
+      );
+  
+  -----
   success, fail, complete
   
 2) creating Observable
-
-  import 'rxjs/Rx';
   
   const myNumbers = Observable.interval(1000);
   myNumbers.subscribe(
@@ -39,3 +48,8 @@
   userActivated = new Subject();
     
   this.userActivated.next(this.id);
+  
+4) operators http://reactivex.io/rxjs/class/es6/Observable.js~Observable.html]
+
+
+  
