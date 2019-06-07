@@ -1,0 +1,58 @@
+1) imports: [FormsModule]
+
+
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div ngModelGroup="userData" #userData="ngModelGroup">
+        <label for="username"></label>    
+        <input type="text" id="username" 
+              ngModel name='username'    --- control registering
+              required>  
+
+        <input type="email" id="email" 
+              [ngModel]="defaultQuestion"
+              name='email'
+              required email
+              #email="ngModel">  
+        <p *ngIf="!email.valid && email.toched">please enter a valid email!</p>
+    </div>
+    <button type="submit"
+      [disabled]='f.disabled'>Submit</button>
+   </form>
+   
+  -----    
+  
+  export class AppComponent {
+    @ViewChild('f') signupForm;
+    defaultQuestion='teacher';
+    
+    suggestUserName() {
+      const suggestedName = 'superuser';
+      
+      this.signupForm.setValue({     --- overwrite all form
+        userData: {
+          username: suggestedName,
+          email: ''
+        },
+        secret: 'pet',
+        questionAnswer: '',
+        gender: 'male'        
+      });
+      
+      or overwrite only one value
+      
+      this.signupForm.form.patchValue({
+        userData: {
+          username: suggestedName
+        }
+      })
+    }
+    
+    onSubmit(form: ElementRef){
+      this.username = this.signupForm.value.userData.username;
+      this.email = this.signupForm.value.userData.email;
+      this.question = this.signupForm.value.question;
+      this.answer = this.signupForm.value.questionAnswer;
+    }
+    
+    this.signupForm.reset;
+  }
