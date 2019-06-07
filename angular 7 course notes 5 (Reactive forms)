@@ -41,6 +41,7 @@ imports: [ReactiveFormsModule]
       (<FromArray>this.signupForm.get('hobbies')).push(control)
     }
     
+    // custom validator
     forbiddenNames(control: FormControl): {[s: string]:boolean} {  -syntax when we need to return key-value pair
       if (this.forbiddenUsernames.indexOf(control.value) !== -1){
         return {'nameIsForbidden': true};
