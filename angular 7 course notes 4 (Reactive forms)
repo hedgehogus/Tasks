@@ -1,0 +1,50 @@
+imports: [ReactiveFormsModule]  
+------  
+  
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <div  formGroupName="userData">       
+        <input type="text" id="username" formControlName='username'>  
+        <input type="email" id="email"  formControlName='email'>  
+        
+        <p *ngIf="signupForm.get('userData.username').valid">please enter a valid email!</p>
+    </div>
+    <div formArrayName="hobbies">
+      <div *ngFor="let hobbyControl of signupForm.get('hobbies').controls; let i = index">
+        <input type="text" [formControlName]="i">
+      </div>
+    </div>
+    <button type="submit"
+      [disabled]='f.disabled'>Submit</button>
+   </form>
+   
+ ------
+ export class AppComponent {
+    signupForm: FormGroup;
+    
+    ngOnInit(){
+      this.signupForm = new FormGroup({
+        userData: new FormGroup({
+          username: new FormControl('value', [Validators.required, this.forbiddenNames.bind(this)),
+          email: new FormControl(null, [Validators.required, Validators.email])  
+        }),        
+        gender: new FormControl('male',Validators.required),
+        'hobbies': new FormArray([])
+      });
+    }
+    
+    onSubmit() {
+      console.log(this.signupForm);
+    }
+    
+    onAddHobby() {
+    const control = new FormControl(null);
+      (<FromArray>this.signupForm.get('hobbies')).push(control)
+    }
+    
+    forbiddenNames(control: FormControl): {[s: string]:boolean} {  -syntax when we need to return key-value pair
+      if (this.forbiddenUsernames.indexOf(control.value) !== -1){
+        return {'nameIsForbidden': true};
+      }
+      return null
+    }
+ }
