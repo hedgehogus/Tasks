@@ -62,7 +62,14 @@ async validators - ng-pending attribute
         gender: new FormControl('male',Validators.required),
         'hobbies': new FormArray([])
       });
-    }
+      // form observables
+      this.signupForm.valueChanges.subscribe(
+        (value) => console.log(value);
+      )
+      this.signupForm.statusChanges.subscribe(
+        (value) => console.log(value); // INVALID, VALID, PENDING
+      )
+ }
     
  forbiddenEmails(control: FormControl): Promise<any> | Observable <any>{
   const promise = new Promise<any>((resolve, reject) => {
