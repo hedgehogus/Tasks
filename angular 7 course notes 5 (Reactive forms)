@@ -83,4 +83,14 @@ async validators - ng-pending attribute
   }
   return promise;
  }
+ 
+ ------------
+ adding form group to form array
+  (<FormArray>this.recipeForm.get('ingredients')).push(
+      new FormGroup(
+        'name': new FormControl(),
+        'amount': new FromControl()
+      )
+  )
 
+<button type='button'> - forr not submitting form
