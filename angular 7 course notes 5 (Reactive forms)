@@ -94,3 +94,10 @@ async validators - ng-pending attribute
   )
 
 <button type='button'> - forr not submitting form
+------------
+styling:
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched{
+  border: 1px solid red;
+}
