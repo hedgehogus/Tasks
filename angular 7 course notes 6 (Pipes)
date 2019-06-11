@@ -20,3 +20,27 @@ export class ShortenPipe implements PipeTransform{
   ]
 })
 
+2) filter pipe
+
+@Pipe({
+  name: 'filter',
+  pure: false          ---- detect changes
+})
+export class ShortenPipe implements PipeTransform{
+  transform(value: any, filterString: string, propName: string); any{
+    if (value.length === 0){
+      return value;
+    }
+    const resultArray = [];
+    for (const item of value){
+      const resultArray = [];
+      if(item[propName] === filterString){
+        resultArray.push(item);
+      }
+      return resultArray;
+    }
+    return resultArray;
+  }
+}
+
+*ngFor="let server of servers | filter: filteredStatus: 'status'
