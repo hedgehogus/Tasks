@@ -1,0 +1,11 @@
+@Injectable()
+export class ServerService {
+  constructor (private http: Http){
+  }
+  
+  addServers(servers: any[]) {
+    this.http.post('https://udemy-ng-http.firebaseio.com', servers).subscribe(
+      (resp) => console.log(resp);
+    );
+  }
+}
