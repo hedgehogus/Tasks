@@ -4,8 +4,19 @@ export class ServerService {
   }
   
   addServers(servers: any[]) {
-    this.http.post('https://udemy-ng-http.firebaseio.com', servers).subscribe(
+    this.http.post('https://udemy-ng-http.firebaseio.com', servers).map(
+      (resp: Response) => {
+        const data = response.json();
+        return data
+      }
+    ).catch(
+      (err: Response) => {
+        console.log(error);
+        return Observable.throw(error);
+      }
+    ).subscribe(
       (resp) => console.log(resp);
+      (err) => {};
     );
   }
 }
