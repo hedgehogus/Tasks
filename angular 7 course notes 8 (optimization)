@@ -5,3 +5,10 @@
   providers: [],      --- services
   bootstrap: []       --- root component
 })
+
+-------------
+ lazy loading 
+ 
+ const appRputes: Routes = [
+  {path: 'recipe', loadChildren: './recipes/recipes.module#RecipesModule'}
+ ]
