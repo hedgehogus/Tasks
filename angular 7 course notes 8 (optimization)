@@ -1,0 +1,7 @@
+@ngModule({
+  declarations: [],   --- components  
+  improts: [],        --- modules
+  exports: [],        --- if we need import to other modules
+  providers: [],      --- services
+  bootstrap: []       --- root component
+})
