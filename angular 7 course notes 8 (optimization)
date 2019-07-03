@@ -16,3 +16,17 @@
  ------------
  
  AoT - ahead of time compilation 
+ ng build --prod -- aot
+ 
+ ------------
+ 
+ preloading lazy load modules
+ 
+ @NgModule({
+  imports: [
+    RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})
+  ],
+  exports: [RouterModule]
+ })
+ export class AppRoutingModule{}
+ 
