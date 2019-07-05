@@ -31,3 +31,17 @@ export class ServerService {
 appName = this.serverService.getAppName();
 
 <h1>{{appName| async}}</h1>
+
+---------
+HttpClient
+
+    storeRecipes(){
+        return this.httpClient.put('https://udemy-ng-http.firebaseio.com/recipes.json?auth='+ token, this.recipeService.getRecipes));
+      }
+    
+    getAppName(){
+    return this.httpClient.get<Recipe[]>('https://udemy-ng-http.firebaseio.com/recipes.json?auth='+ token')
+        .map((recipes) =>{
+          return recipes.json();
+        });
+  }
