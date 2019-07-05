@@ -40,8 +40,21 @@ HttpClient
       }
     
     getAppName(){
-    return this.httpClient.get<Recipe[]>('https://udemy-ng-http.firebaseio.com/recipes.json?auth='+ token')
-        .map((recipes) =>{
-          return recipes.json();
-        });
-  }
+      return this.httpClient.get<Recipe[]>('https://udemy-ng-http.firebaseio.com/recipes.json?auth='+ token')
+          .map((recipes) =>{
+            return recipes.json();
+          });
+    }
+    
+    getAppName(){
+      return this.httpClient.get('https://udemy-ng-http.firebaseio.com/recipes.json?auth='+ token', 
+      {
+        //body:
+        //headers:
+        observe: 'response',
+        responceType: 'text' //'json', 'blob', 'arrayBuffer'
+      } )
+          .map((recipes) =>{
+            return recipes.json();
+          });
+    }
