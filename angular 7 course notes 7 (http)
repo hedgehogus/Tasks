@@ -58,3 +58,12 @@ HttpClient
             return recipes.json();
           });
     }
+    
+     return this.httpClient.get('https://udemy-ng-http.firebaseio.com/recipes.json?auth='+ token', 
+      {
+        observe: 'events'     
+      } ).subscribe((response: HttpEvent<Object>) => {
+        console.log(response === HttpEventType.sent); // Responce, User, DownloadProgress, UploadProgress
+       })
+    
+    
