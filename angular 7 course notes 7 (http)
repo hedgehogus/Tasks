@@ -52,6 +52,8 @@ HttpClient
         //body:
         //headers:
         observe: 'response',
+        headers: new HttpHeaders.set('Authorization, 'Bearer ewfkjfjdksjf'),
+        params: newHttpParams().set('auth', token)
         responceType: 'text' //'json', 'blob', 'arrayBuffer'
       } )
           .map((recipes) =>{
@@ -61,9 +63,16 @@ HttpClient
     
      return this.httpClient.get('https://udemy-ng-http.firebaseio.com/recipes.json?auth='+ token', 
       {
-        observe: 'events'     
+        observe: 'events',        
       } ).subscribe((response: HttpEvent<Object>) => {
         console.log(response === HttpEventType.sent); // Responce, User, DownloadProgress, UploadProgress
        })
-    
+       
+   ------------------    
+   const req = new HttpRequest('PUT','https:///...', this.service.getData(), { 
+        reportProgress: true,
+        params: newHttpParams().set('auth', token} );
+        
+   this.httpClient.request(req);
+      
     
