@@ -1,0 +1,39 @@
+npm install --save @ngrx/store
+
+---------
+
+export const ADD_INGREDIENT = 'ADD_INGREDIENT';
+
+const initialState = {
+    ingredients: [
+      new Ingredient('Apples', 5),
+      new Ingredient('Tomatoes, 10)
+    ]
+}
+
+export function shoppingListReducer(state = initialState, action: ShoppengListActions){
+  switch (action.type){
+    case ShoppengListActions.ADD_INGREDIENT:
+      return {
+        ...state, // spread operator - expand all previous state properties
+        ingredients: [...state.ingredients, action.payload]
+      }
+     break;
+    default:
+      return state;
+  }
+}
+
+------------
+
+import {Action} from '@ngrx/store'
+
+export const ADD_INGREDIENT = 'ADD_INGREDIENT';
+
+export class AddIngredient implements Action {
+  readonly type = ADD_INGREDIENT;
+  payload: Ingredient;
+}
+
+export type ShoppengListActions = AddIngredient;
+
