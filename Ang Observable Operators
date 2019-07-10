@@ -1,0 +1,92 @@
+import { takeWhile } from 'rxjs/operators';
+
+Concat 
+forkJoin
+mergeMap
+pairwise 
+switchMap
+combineLatest 
+exhaust  exhaustMap()
+scan
+from
+take
+takeWhile
+takeUntil
+
+https://rxjs-dev.firebaseapp.com/api/operators
+https://netbasal.com/rxjs-six-operators-that-you-must-know-5ed3b6e238a0
+
+1. Concat 
+    const getPostOne$ = Rx.Observable.timer(3000).mapTo({id: 1});
+    const getPostTwo$ = Rx.Observable.timer(1000).mapTo({id: 2});
+
+    Rx.Observable.concat(getPostOne$, getPostTwo$).subscribe(res => console.log(res));
+    //when you need to send HTTP requests that should be in order.
+    
+2. forkJoin
+
+    const getPostOne$ = Rx.Observable.timer(1000).mapTo({id: 1});
+    const getPostTwo$ = Rx.Observable.timer(2000).mapTo({id: 2});
+
+    Rx.Observable.forkJoin(getPostOne$, getPostTwo$).subscribe(res => console.log(res));
+    //Use this operator when you need to run the Observables in parallel.
+    
+3. mergeMap
+    const post$ = Rx.Observable.of({id: 1});
+    const getPostInfo$ = Rx.Observable.timer(3000).mapTo({title: "Post title"});
+    const posts$ = post$.mergeMap(post => getPostInfo$).subscribe(res => console.log(res));
+    
+    //Only when the inner Observable emits, let me know by merging the value to the outer Observable.
+    //Projects each source value to an Observable which is merged in the output Observable.
+    применяется, когда у вас есть Observable, элементы последовательности которого тоже Observable, 
+    а вам хочется объединить все в один поток (чтобы все элементы внутренние Observable порождали 
+    событие основного). Не путать со switchMap!
+    
+4. pairwise 
+    Rx.Observable
+      .fromEvent(document, 'scroll')
+      .map(e => window.pageYOffset)
+      .pairwise()
+      .subscribe(pair => console.log(pair)); // pair[1] - pair[0]
+      
+      Let me know when the Observable emits, but also give me the previous value. ( Array )
+      
+ 5. switchMap
+     const clicks$ = Rx.Observable.fromEvent(document, 'click');
+     const innerObservable$ = Rx.Observable.interval(1000);
+
+      clicks$.switchMap(event => innerObservable$)
+                    .subscribe(val => console.log(val));
+                    
+     switchMap делает complete для предыдущего Observable, 
+     то есть в данном случае у нас всегда будет только один активный Observable для интервала:
+     
+     Like mergeMap but when the source Observable emits cancel any previous subscriptions of the inner Observable.
+
+  6. combineLatest 
+      const intervalOne$ = Rx.Observable.interval(1000);
+      const intervalTwo$ = Rx.Observable.interval(2000);
+
+      Rx.Observable.combineLatest(
+          intervalOne$,
+          intervalTwo$ 
+      ).subscribe(all => console.log(all));
+      
+      Let me know when any Observable emits but also give me the latest value from the others. ( Array )
+      This operator is very useful when you need for example to deal with filters in your app.
+      
+---------------------------------
+
+Оператор scan() соответствует методу массива reduce()
+
+Оператор exhaust() создаёт из наблюдаемой высшего порядка плоскую наблюдаемую, подписываясь на новые внутренние наблюдаемые только в том случае, если текущая внутренняя наблюдаемая успешно завершилась.
+
+combineLatest(observable1: ObservableInput, observable2: ObservableInput, project: function, scheduler: Scheduler): Observable
+Combines multiple Observables to create an Observable whose values are calculated from the latest values of each of its input Observables.
+
+from(ish: ObservableInput<T>, scheduler: Scheduler): Observable<T>
+Creates an Observable from an Array, an array-like object, a Promise, an iterable object, or an Observable-like object.
+
+takeUntil - Lets values pass until a second Observable, notifier, emits a value. Then, it completes.
+
+Scheduler - a data structure to order tasks and schedule their execution. Provides a notion of (potentially virtual) time, through the now()
