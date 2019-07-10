@@ -4,14 +4,20 @@ npm install --save @ngrx/store
 
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 
+export interface State {
+    ingredients: Ingredient [];
+    editedIngredient: Ingredient
+}
+
 const initialState = {
     ingredients: [
       new Ingredient('Apples', 5),
       new Ingredient('Tomatoes, 10)
-    ]
+    ],
+    editedIngredient: null
 }
 
-export function shoppingListReducer(state = initialState, action: ShoppengListActions){
+export function shoppingListReducer(state = initialState, action: ShoppingListActions.ShoppingListActions){
   switch (action.type){
     case ShoppengListActions.ADD_INGREDIENT:
       return {
@@ -19,6 +25,31 @@ export function shoppingListReducer(state = initialState, action: ShoppengListAc
         ingredients: [...state.ingredients, action.payload]
       }
      break;
+    case ShoppingListActions.ADD_INGREDIENTS:
+      return {
+        ...state,
+        ingredients: [...state.ingredients, ...action.payload]
+        }
+        break;   
+    case ShoppingListActions.UPDATE_INGREDIENT:
+          conts ingredient = state.ingredients[action.payload.index];
+          const updatedIngredient = {
+            ...ingredient, ...action.payload.ingredient
+          };
+          const ingredients = [...state.ingredients];
+          return {
+            ...state,
+            ingredients: ingredients
+          }
+        break; 
+     case ShoppingListActions.DELETE_INGREDIENT:
+          const oldIngredients = [...state.ingredients];
+          oldIngredients.splice(action.payload, 1)  //  action.payload -passing index
+          return {
+            ...state,
+            ingredients: oldIngredients
+          }
+     break; 
     default:
       return state;
   }
@@ -29,11 +60,44 @@ export function shoppingListReducer(state = initialState, action: ShoppengListAc
 import {Action} from '@ngrx/store'
 
 export const ADD_INGREDIENT = 'ADD_INGREDIENT';
+export const ADD_INGREDIENT = 'ADD_INGREDIENTs';
 
 export class AddIngredient implements Action {
-  readonly type = ADD_INGREDIENT;
-  payload: Ingredient;
+    readonly type = ADD_INGREDIENT;
+    constructor(public payload: Ingredient)
+}
+export class AddIngredients implements Action {
+    readonly type = ADD_INGREDIENTS;
+    constructor(public payload: Ingredients)
 }
 
-export type ShoppengListActions = AddIngredient;
+export type ShoppingListActions = AddIngredient;
+
+----------
+
+//app.module  --- register
+
+@NgModule({
+    imports: [
+        StoreModule.forRoot({shoppingList: shoppingListReducer})   --- for eagerly loaded modules
+    ]
+})
+
+----------
+
+///get state
+
+shoppingList: Observable<{ingredients: Ingredient[]}>
+
+conctructor(private store: Store<{shoppingList: {ingredients: Ingredient []}}>){}
+
+ngOnInit(){
+    this.shoppingList = this.store.select('shoppingList');  //observable
+}
+
+-----------
+
+///dispatch action
+
+this.store.dispatch(new ShoppingLiatActions.AddIngredient(newIngredient))
 
