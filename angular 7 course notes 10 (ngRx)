@@ -79,7 +79,8 @@ export type ShoppingListActions = AddIngredient;
 
 @NgModule({
     imports: [
-        StoreModule.forRoot({shoppingList: shoppingListReducer})   --- for eagerly loaded modules
+        StoreModule.forRoot({shoppingList: shoppingListReducer})   --- forRoot - for eagerly loaded modules
+        EffectsModule.forRoot([AuthEffects])
     ]
 })
 
@@ -101,3 +102,20 @@ ngOnInit(){
 
 this.store.dispatch(new ShoppingLiatActions.AddIngredient(newIngredient))
 
+
+-----------
+
+///effects
+
+@Injectable()
+export class AuthEffects{
+    @Effect()
+    authSignup = this.actions$
+            .ofType(AuthActions.TRY_SIGNUP)
+            .map((action: AuthActions.TrySgnup) => {
+                return action.payload;
+            })
+            .switchMap
+    constructor(private actions$){        //$ - means observable
+    }
+}
