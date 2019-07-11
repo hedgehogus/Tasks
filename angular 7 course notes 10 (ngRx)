@@ -1,4 +1,5 @@
 npm install --save @ngrx/store
+npm install --save @ngrx/effects
 
 ---------
 
@@ -109,13 +110,26 @@ this.store.dispatch(new ShoppingLiatActions.AddIngredient(newIngredient))
 
 @Injectable()
 export class AuthEffects{
-    @Effect()
+    @Effect()                       /// we need dispatch action in the end, else pass {dispatch: false} in decorator
     authSignup = this.actions$
             .ofType(AuthActions.TRY_SIGNUP)
-            .map((action: AuthActions.TrySgnup) => {
+            .map((action: AuthActions.TrySignup) => {
                 return action.payload;
-            })
-            .switchMap
+            }).switchMap((authData: {username: string, password}) => {
+                return fromPromise(firebase.auth().createUserWithEmailAndPassword(authData.username, authData.password);
+            }).switchMap(() => {
+                return fromPromise(firebase.auth().currentUser.getIdToken())
+            }).mergeMap((token: string) => {
+                return [
+                    {
+                        type: AuthActions.SIGNUP
+                    },
+                    {
+                        type: AuthActions.SET_TOKEN,
+                        payload: token
+                    }
+                ]
+            });
     constructor(private actions$){        //$ - means observable
     }
 }
