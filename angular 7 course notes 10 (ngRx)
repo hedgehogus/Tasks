@@ -1,5 +1,11 @@
+//Store devtools
+npm install --save @ngrx/store-devtools  ---- need chrome extension redux devtools
+
+----------
 npm install --save @ngrx/store
 npm install --save @ngrx/effects
+...
+npm install --save @ngrx/router-store
 
 ---------
 
@@ -80,8 +86,12 @@ export type ShoppingListActions = AddIngredient;
 
 @NgModule({
     imports: [
-        StoreModule.forRoot({shoppingList: shoppingListReducer})   --- forRoot - for eagerly loaded modules
-        EffectsModule.forRoot([AuthEffects])
+        StoreModule.forRoot({shoppingList: shoppingListReducer}),   --- forRoot - for eagerly loaded modules        
+        //StoreModule.forFeature('recipes', recipeReducer);                        --- for lazy loading modules
+        EffectsModule.forRoot([AuthEffects]),
+        ...
+        StoreRouterConnectingModule,
+        !environment.production ? StoreDevtoolsModule.instrument() : []
     ]
 })
 
@@ -102,7 +112,6 @@ ngOnInit(){
 ///dispatch action
 
 this.store.dispatch(new ShoppingLiatActions.AddIngredient(newIngredient))
-
 
 -----------
 
