@@ -120,6 +120,7 @@ export class AuthEffects{
             }).switchMap(() => {
                 return fromPromise(firebase.auth().currentUser.getIdToken())
             }).mergeMap((token: string) => {
+                this.router.navigate(['/']);
                 return [
                     {
                         type: AuthActions.SIGNUP
@@ -130,6 +131,6 @@ export class AuthEffects{
                     }
                 ]
             });
-    constructor(private actions$){        //$ - means observable
+    constructor(private actions$, private router: Router){        //$ - means observable
     }
 }
