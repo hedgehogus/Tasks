@@ -17,7 +17,9 @@
     @Input()
     @Output()
     @ViewChild()
-    @ContentChild()
+    @ContentChild()  -Use to get the first element or the directive matching the 
+                        selector from the content DOM. If the content DOM changes, and a new child matches the selector, 
+                        the property will be updated.
     @HostBinding() - directives
         method:
     @HostListener() - directives
