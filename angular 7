@@ -45,3 +45,5 @@
        checkAndUpdateView - debugging
        
 3) angular 8  - https://habr.com/ru/post/455493/
+
+4) monorepos https://go.nrwl.io/angular-enterprise-monorepo-patterns-new-book
