@@ -101,5 +101,5 @@ transform3d(0,0,0);
       git config --unset-all --global user.name
       git config --unset-all --global user.email
       
-      git config --global user.name "John Doe"
-      git config --global user.email johndoe@example.com
+      git config --global user.name "hedgehogus"
+      git config --global user.email research162@gmail.com
