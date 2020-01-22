@@ -51,7 +51,7 @@ HttpClient
       {
         //body:
         //headers:
-        observe: 'response',
+        observe: observe: 'response' as 'body',
         headers: new HttpHeaders.set('Authorization, 'Bearer ewfkjfjdksjf'),
         params: newHttpParams().set('auth', token)
         responceType: 'text' //'json', 'blob', 'arrayBuffer'
